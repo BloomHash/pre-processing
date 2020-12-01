@@ -7,7 +7,7 @@ import re
 import sys
 
 # import initial csv and then overwrite the tweets contents / using columns id, place, tweet, and keyword
-finalDataframe = pd.read_csv(sys.argv[1], usecols=[0, 4, 5, 6])
+finalDataframe = pd.read_csv(sys.argv[1], usecols=[4, 5, 6])
 
 # get just the tweets to process
 tweets = pd.read_csv(sys.argv[1], usecols=[5])
@@ -56,6 +56,13 @@ X = [" ".join(text_processor.pre_process_doc(x)) for x in flat]
                   
 finalDataframe['tweet'] = X
 
-### save dataframe to new csv
-finalDataframe.to_csv(sys.argv[2], index=False, header=True)
+stateList = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA',
+             'HI','ID','IL','IN','IA','KS','KY','LA','ME','MD',
+             'MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ',
+             'NM','NY','NC','ND','OH','OK','OR','PA','RI','SC',
+             'SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
+
+# save dataframe to new csv for each state
+for state in stateList:
+    finalDataframe[finalDataframe['place']==state].to_csv(state+'.csv', index=False, header=False, columns=['tweet','keyword'])
 
