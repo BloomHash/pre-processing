@@ -1,16 +1,15 @@
 import pandas as pd
-import numpy as np
 from ekphrasis.classes.preprocessor import TextPreProcessor 
 from ekphrasis.classes.tokenizer import SocialTokenizer
 from ekphrasis.dicts.emoticons import emoticons
 import re
 import sys
 
-# import initial csv and then overwrite the tweets contents / using columns id, place, tweet, and keyword
+# import initial csv and then overwrite the tweets contents / using columns tweet, keyword, and location
 finalDataframe = pd.read_csv(sys.argv[1], usecols=[4, 5, 6])
 
 # get just the tweets to process
-tweets = pd.read_csv(sys.argv[1], usecols=[5])
+tweets = pd.read_csv(sys.argv[1], usecols=[4])
 df = tweets.values.tolist()
 removalCount = 0
 flat = []
@@ -56,7 +55,7 @@ X = [" ".join(text_processor.pre_process_doc(x)) for x in flat]
                   
 finalDataframe['tweet'] = X
 
-stateList = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA',
+stateList = ['AL','AK','AZ','AR','CA','CO','CT','DC','DE','FL','GA',
              'HI','ID','IL','IN','IA','KS','KY','LA','ME','MD',
              'MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ',
              'NM','NY','NC','ND','OH','OK','OR','PA','RI','SC',
@@ -64,5 +63,5 @@ stateList = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA',
 
 # save dataframe to new csv for each state
 for state in stateList:
-    finalDataframe[finalDataframe['place']==state].to_csv(state+'.csv', index=False, header=False, columns=['tweet','keyword'])
+    finalDataframe[finalDataframe['location']==state].to_csv(state+'.csv', index=False, header=False, columns=['tweet','keyword'])
 
