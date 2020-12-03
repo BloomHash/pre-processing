@@ -5,6 +5,10 @@ The data "cleaning" portion of the process takes in the raw .csv files generated
  - getLocation: takes the .csv file generated for the user data from twint and joins with clean dataset to tag a particular tweet with a state, dropping all tweets that cannot be linked to a state.
  
  ## To run:
+ Generate the jar file to include with the spark-job by running:
+ ```
+ sbt package
+ ```
  Ensure that hadoop distributed file system and spark are running either locally or on the cluster. Submit job with the following script:
  ```
  ./run_spark.sh [scala-object] [generated-sbt-jar] [hdfs-input-path] [hdfs-output-path]
