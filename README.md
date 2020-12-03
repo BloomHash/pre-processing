@@ -7,7 +7,7 @@ The data "cleaning" portion of the process takes in the raw .csv files generated
  ## To run:
  Ensure that hadoop distributed file system and spark are running either locally or on the cluster. Submit job with the following script:
  ```
- ./run_spark.sh [scala-object] [hdfs-input-path] [hdfs-output-path]
+ ./run_spark.sh [scala-object] [generated-sbt-jar] [hdfs-input-path] [hdfs-output-path]
  ```
 
 # pre-processing
